@@ -53,3 +53,23 @@ def ver_plan(request, id):
 def logout_view(request):
     logout(request)
     return redirect('landing')  # o usa '/' directamente
+
+@login_required
+def editar_plan(request, id):
+    plan = get_object_or_404(Plan, id=id, creador=request.user)
+    if request.method == 'POST':
+        form = PlanForm(request.POST, request.FILES, instance=plan)
+        if form.is_valid():
+            form.save()
+            return redirect('panel_usuario')
+    else:
+        form = PlanForm(instance=plan)
+    return render(request, 'editar_plan.html', {'form': form})
+
+@login_required
+def eliminar_plan(request, id):
+    plan = get_object_or_404(Plan, id=id, creador=request.user)
+    if request.method == 'POST':
+        plan.delete()
+        return redirect('panel_usuario')
+    return render(request, 'eliminar_plan.html', {'plan': plan})

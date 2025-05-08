@@ -31,7 +31,9 @@
         }
 
         .btn-outline-primary,
-        .btn-success {
+        .btn-success,
+        .btn-warning,
+        .btn-danger {
             border-radius: 0.5rem;
             font-size: 0.9rem;
         }
@@ -85,7 +87,11 @@
                 {% for plan in planes_creados %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>{{ plan.titulo }} - {{ plan.fecha|date:"d/m/Y H:i" }}</span>
-                        <a href="{% url 'ver_plan' plan.id %}" class="btn btn-outline-primary btn-sm">Ver</a>
+                        <div class="btn-group">
+                            <a href="{% url 'ver_plan' plan.id %}" class="btn btn-outline-primary btn-sm">Ver</a>
+                            <a href="{% url 'editar_plan' plan.id %}" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="{% url 'eliminar_plan' plan.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                        </div>
                     </li>
                 {% empty %}
                     <li class="list-group-item">No has creado planes aún.</li>
@@ -110,6 +116,7 @@
 
 </body>
 </html>
+
 
 
 

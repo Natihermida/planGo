@@ -1,11 +1,10 @@
 from django import forms
 from .models import Plan
 
-
 class PlanForm(forms.ModelForm):
     class Meta:
         model = Plan
-        fields = ['titulo', 'descripcion', 'fecha', 'imagen']
+        fields = ['titulo', 'descripcion', 'fecha', 'imagen', 'plazas_disponibles']  # <--- aquí
         widgets = {
             'titulo': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -22,5 +21,9 @@ class PlanForm(forms.ModelForm):
             }),
             'imagen': forms.ClearableFileInput(attrs={
                 'class': 'form-control'
+            }),
+            'plazas_disponibles': forms.NumberInput(attrs={     # <--- estilo del input
+                'class': 'form-control',
+                'min': 1
             }),
         }
